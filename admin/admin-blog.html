@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Öz EMG İnşaat Yönetim</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .post-row { display:grid;grid-template-columns:80px 1fr auto;gap:1.2rem;align-items:center;padding:1.1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05); }
+    .post-row:last-child{border-bottom:none}
+    .post-img { width:80px;height:60px;border-radius:8px;object-fit:cover;border:1px solid var(--border-subtle); }
+    .post-title { font-size:0.95rem;font-weight:600;color:var(--text-primary);margin-bottom:4px; }
+    .post-meta { font-size:0.78rem;color:var(--text-muted);display:flex;gap:0.8rem;align-items:center; }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <svg viewBox="0 0 64 64" width="38" height="38" fill="none" stroke="#d4af37" stroke-width="2">
+          <rect x="6" y="28" width="6" height="30"/><rect x="16" y="18" width="8" height="40"/>
+          <rect x="28" y="6" width="10" height="52"/><rect x="42" y="22" width="6" height="36"/>
+          <rect x="52" y="32" width="5" height="26"/>
+        </svg>
+        <div><div class="sidebar-logo-text">ÖZ EMG</div><div class="sidebar-logo-sub">Yönetim Paneli</div></div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="admin-dashboard.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Gösterge Paneli</a>
+        <a href="admin-projects.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg> Projeler</a>
+        <a href="admin-services.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Hizmetler</a>
+        <a href="admin-messages.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mesajlar<span class="nav-badge danger" id="msgBadge" style="display:none">0</span></a>
+        <a href="admin-references.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Referanslar</a>
+        <a href="admin-blog.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l6 6v8a2 2 0 0 1-2 2z"/><polyline points="14 2 14 8 20 8"/></svg> Blog</a>
+        <div class="sidebar-section-title">Sistem</div>
+        <a href="admin-settings.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Ayarlar</a>
+        <a href="../index.html" class="nav-item" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg> Siteyi Gör</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar" id="userAvatar">A</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="userName">Yönetici</div>
+            <div class="sidebar-user-role">Admin</div>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="Admin.logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg> Çıkış Yap</button>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <button class="topbar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+          <div class="topbar-title">Yönetim Paneli <span>· Blog</span></div>
+        </div>
+        <div class="topbar-right"><span class="topbar-time" id="topbarTime"></span></div>
+      </div>
+
+      <div class="page-content">
+        <div class="page-header">
+          <div class="page-header-text">
+            <h1>Blog / Haberler</h1>
+            <p>Blog yazılarını yönetin, yeni yazılar yayınlayın.</p>
+          </div>
+          <div class="page-header-actions">
+            <button class="btn btn--gold" onclick="openAddPostModal()" style="width:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Yeni Yazı</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body" id="postsContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="addPostModal">
+    <div class="modal modal-lg">
+      <div class="modal-header"><span class="modal-title">Yeni Blog Yazısı</span>
+        <button class="modal-close" onclick="Admin.closeModal('addPostModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <form id="addPostForm">
+          <div class="form-group"><label>Başlık <span class="req">*</span></label><input class="form-control" name="title" required></div>
+          <div class="form-group"><label>Kısa Açıklama</label><textarea class="form-control" name="excerpt" rows="2"></textarea></div>
+          <div class="form-group"><label>İçerik</label><textarea class="form-control" name="content" rows="8"></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label>Yazar</label><input class="form-control" name="author" value="Öz EMG İnşaat"></div>
+            <div class="form-group"><label>Durum</label>
+              <select class="form-control" name="status">
+                <option value="published">Yayında</option>
+                <option value="draft">Taslak</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label>Görsel URL</label><input class="form-control" name="image" placeholder="images/...">
+            <div class="form-img-preview" id="addPostPreview"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--outline" onclick="Admin.closeModal('addPostModal')" style="width:auto">İptal</button>
+        <button class="btn btn--gold" onclick="handleAddPost()" style="width:auto">Yayınla</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="editPostModal">
+    <div class="modal modal-lg">
+      <div class="modal-header"><span class="modal-title">Yazıyı Düzenle</span>
+        <button class="modal-close" onclick="Admin.closeModal('editPostModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <form id="editPostForm">
+          <input type="hidden" name="id">
+          <div class="form-group"><label>Başlık</label><input class="form-control" name="title" required></div>
+          <div class="form-group"><label>Kısa Açıklama</label><textarea class="form-control" name="excerpt" rows="2"></textarea></div>
+          <div class="form-group"><label>İçerik</label><textarea class="form-control" name="content" rows="8"></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label>Yazar</label><input class="form-control" name="author"></div>
+            <div class="form-group"><label>Durum</label>
+              <select class="form-control" name="status">
+                <option value="published">Yayında</option><option value="draft">Taslak</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label>Görsel URL</label><input class="form-control" name="image">
+            <div class="form-img-preview" id="editPostPreview"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--danger" onclick="handleDeleteFromEdit()" style="width:auto">Sil</button>
+        <button class="btn btn--outline" onclick="Admin.closeModal('editPostModal')" style="width:auto">İptal</button>
+        <button class="btn btn--gold" onclick="handleUpdatePost()" style="width:auto">Güncelle</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container"></div>
+  <script src="../js/api-config.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    if (!Admin.requireAuth()) throw new Error('Not auth');
+    const session = Admin.getSession();
+    document.getElementById('userName').textContent = session.name || 'Yönetici';
+    document.getElementById('userAvatar').textContent = Admin.initials(session.name || 'A');
+    function updateClock() { document.getElementById('topbarTime').textContent = new Date().toLocaleString('tr-TR', { dateStyle:'long', timeStyle:'short' }); }
+    updateClock(); setInterval(updateClock, 30000);
+
+    function render() {
+      const posts = Admin.getBlog();
+      const c = document.getElementById('postsContainer');
+      if (posts.length === 0) { c.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l6 6v8a2 2 0 0 1-2 2z"/><polyline points="14 2 14 8 20 8"/></svg><h3>Henüz yazı yok</h3><p>"Yeni Yazı" ekleyerek başlayın</p></div>'; return; }
+      c.innerHTML = posts.map(p => `
+        <div class="post-row">
+          <img class="post-img" src="${p.image || 'images/hero-main.webp'}" onerror="this.src='images/hero-main.webp'">
+          <div>
+            <div class="post-title">${p.title}</div>
+            <div class="post-meta">
+              <span>${Admin.formatDate(p.createdAt)}</span>
+              <span>${p.author || 'Öz EMG İnşaat'}</span>
+              ${Admin.statusBadge(p.status)}
+            </div>
+            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:4px">${(p.excerpt || '').substring(0, 120)}${(p.excerpt || '').length > 120 ? '…' : ''}</div>
+          </div>
+          <div class="row-actions">
+            <button onclick='openEditPostModal(${JSON.stringify(p).replace(/'/g, "\\u0027")})' title="Düzenle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <button class="danger" onclick="handleDelete('${p.id}')" title="Sil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+          </div>
+        </div>
+      `).join('');
+    }
+    function openAddPostModal() { document.getElementById('addPostForm').reset(); document.getElementById('addPostPreview').innerHTML = ''; Admin.openModal('addPostModal'); }
+    function openEditPostModal(p) {
+      const f = document.getElementById('editPostForm');
+      f.id.value = p.id; f.title.value = p.title; f.excerpt.value = p.excerpt || '';
+      f.content.value = p.content || ''; f.author.value = p.author || ''; f.status.value = p.status || 'published';
+      f.image.value = p.image || '';
+      document.getElementById('editPostPreview').innerHTML = p.image ? `<img src="${p.image}">` : '';
+      Admin.openModal('editPostModal');
+    }
+    function f2o(form) { return Object.fromEntries(new FormData(form).entries()); }
+    async function handleAddPost() {
+      const f = document.getElementById('addPostForm');
+      if (!f.title.value) { Admin.toast('Başlık gerekli', 'error'); return; }
+      try {
+        await Admin.addBlogPost(f2o(f));
+        Admin.toast('Yazı yayınlandı'); Admin.closeModal('addPostModal'); render();
+      } catch (err) { Admin.toast(err.message || 'Yazı eklenemedi.', 'error'); }
+    }
+    async function handleUpdatePost() {
+      const f = document.getElementById('editPostForm');
+      const data = f2o(f); const id = data.id; delete data.id;
+      try {
+        await Admin.updateBlogPost(id, data);
+        Admin.toast('Yazı güncellendi'); Admin.closeModal('editPostModal'); render();
+      } catch (err) { Admin.toast(err.message || 'Yazı güncellenemedi.', 'error'); }
+    }
+    async function handleDelete(id) {
+      if (!await Admin.confirm('Bu yazıyı silmek istediğinize emin misiniz?')) return;
+      Admin.deleteBlogPost(id); Admin.toast('Silindi'); render();
+    }
+    async function handleDeleteFromEdit() {
+      const id = document.getElementById('editPostForm').id.value;
+      if (!await Admin.confirm('Bu yazıyı silmek istediğinize emin misiniz?')) return;
+      Admin.deleteBlogPost(id); Admin.toast('Silindi'); Admin.closeModal('editPostModal'); render();
+    }
+    // Image preview on URL change
+    document.querySelectorAll('input[name="image"]').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const previewId = inp.closest('form').id === 'addPostForm' ? 'addPostPreview' : 'editPostPreview';
+        const p = document.getElementById(previewId);
+        p.innerHTML = inp.value ? `<img src="${inp.value}" onerror="this.parentElement.innerHTML='<p style=color:var(--text-muted);font-size:0.8rem>Geçersiz URL</p>'">` : '';
+      });
+    });
+    (async function initPage() {
+      await Admin.initAllData();
+      Admin.updateSidebarBadges();
+      render();
+    })();
+  </script>
+</body>
+</html>

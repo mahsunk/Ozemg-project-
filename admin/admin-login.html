@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ÖZ EMG İnşaat Yönetim Paneli - Yönetici Girişi">
+    <title>Yönetici Girişi — ÖZ EMG İnşaat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #0a0a0a;
+            --color-bg-card: #111111;
+            --color-bg-input: #1a1a1a;
+            --color-bg-input-hover: #222222;
+            --color-bg-input-focus: #1a1a1a;
+            --color-border: #2a2a2a;
+            --color-border-focus: #d4af37;
+            --color-gold: #d4af37;
+            --color-gold-light: #e5c65a;
+            --color-gold-dark: #b8962e;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #a0a0a0;
+            --color-text-muted: #666666;
+            --color-error: #ef4444;
+            --color-error-bg: rgba(239, 68, 68, 0.1);
+            --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-gold: 0 0 60px rgba(212, 175, 55, 0.08);
+            --transition-fast: 150ms ease;
+            --transition-normal: 250ms ease;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Noise Texture Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Main Container */
+        .login-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Login Card */
+        .login-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 48px 40px;
+            box-shadow: var(--shadow-md), var(--shadow-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+            opacity: 0.5;
+        }
+
+        /* Logo Area */
+        .logo-area {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            color: var(--color-gold);
+        }
+
+        .logo-text {
+            display: block;
+        }
+
+        .logo-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-gold);
+            letter-spacing: 0.08em;
+            margin-bottom: 4px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-bottom: 6px;
+        }
+
+        .login-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Error Message */
+        .error-message {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: var(--color-error-bg);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            animation: shake 0.4s ease;
+        }
+
+        .error-message.visible {
+            display: flex;
+        }
+
+        .error-message svg {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            color: var(--color-error);
+        }
+
+        .error-message-text {
+            font-size: 0.875rem;
+            color: var(--color-error);
+            line-height: 1.4;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        /* Form */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            width: 18px;
+            height: 18px;
+            color: var(--color-text-muted);
+            pointer-events: none;
+            transition: color var(--transition-fast);
+        }
+
+        .form-input {
+            width: 100%;
+            height: 48px;
+            background: var(--color-bg-input);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 0 14px 0 44px;
+            font-family: var(--font-sans);
+            font-size: 0.9375rem;
+            color: var(--color-text-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .form-input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .form-input:hover {
+            background: var(--color-bg-input-hover);
+            border-color: #333333;
+        }
+
+        .form-input:focus {
+            outline: none;
+            background: var(--color-bg-input-focus);
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-input:focus + .input-icon,
+        .form-input:focus ~ .input-icon {
+            color: var(--color-gold);
+        }
+
+        /* Password Input Specific */
+        .password-wrapper .form-input {
+            padding-right: 48px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .password-toggle:hover {
+            color: var(--color-text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .password-toggle:focus {
+            outline: none;
+            color: var(--color-gold);
+        }
+
+        .password-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .password-toggle .eye-off,
+        .password-toggle .error-icon {
+            display: none;
+        }
+
+        .password-toggle.show-password .eye-open {
+            display: none;
+        }
+
+        .password-toggle.show-password .eye-off {
+            display: block;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            height: 50px;
+            background: linear-gradient(135deg, var(--color-gold-dark) 0%, var(--color-gold) 50%, var(--color-gold-light) 100%);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-sans);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #0a0a0a;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3), 0 6px 20px rgba(212, 175, 55, 0.35);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn.loading {
+            color: transparent;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(10, 10, 10, 0.3);
+            border-top-color: #0a0a0a;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .footer-text svg {
+            width: 12px;
+            height: 12px;
+            color: var(--color-gold);
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .login-card {
+                padding: 32px 24px;
+            }
+
+            .logo-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .logo-title {
+                font-size: 1.75rem;
+            }
+
+            .login-title {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Focus Visible for Accessibility */
+        :focus-visible {
+            outline: 2px solid var(--color-gold);
+            outline-offset: 2px;
+        }
+
+        /* Selection */
+        ::selection {
+            background: rgba(212, 175, 55, 0.3);
+            color: var(--color-text-primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a3a3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Logo Area -->
+            <div class="logo-area">
+                <svg class="logo-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="52" height="52" rx="8" stroke="currentColor" stroke-width="2"/>
+                    <path d="M14 42V18L28 10L42 18V42L28 34L14 42Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M28 34V50" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M14 18L28 26L42 18" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <circle cx="28" cy="26" r="3" fill="currentColor"/>
+                </svg>
+                <div class="logo-text">
+                    <span class="logo-title">ÖZ EMG</span>
+                    <span class="logo-subtitle">İnşaat Yönetim Paneli</span>
+                </div>
+            </div>
+
+            <!-- Title Section -->
+            <div class="title-section">
+                <h1 class="login-title">Yönetici Girişi</h1>
+                <p class="login-subtitle">Hesabınıza erişmek için giriş yapın</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="15" y1="9" x2="9" y2="15"/>
+                    <line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+                <span class="error-message-text" id="errorText">Hata mesajı burada görünecek</span>
+            </div>
+
+            <!-- Login Form -->
+            <form class="login-form" id="loginForm" novalidate>
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label class="form-label" for="username">Kullanıcı Adı</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            class="form-input" 
+                            placeholder="Kullanıcı adınızı girin"
+                            autocomplete="username"
+                            required
+                        >
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label class="form-label" for="password">Şifre</label>
+                    <div class="input-wrapper password-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-input" 
+                            placeholder="Şifrenizi girin"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Şifreyi göster/gizle">
+                            <!-- Eye Open Icon -->
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <!-- Eye Off Icon -->
+                            <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                <line x1="1" y1="1" x2="23" y2="23"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Giriş Yap
+                </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="login-footer">
+                <p class="footer-text">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    Güvenli panel — Öz EMG İnşaat © 2024
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inline JavaScript -->
+    <script src="../js/api-config.js"></script>
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================
+            // DOM Elements
+            // ============================================
+            const loginForm = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+
+            // ============================================
+            // Password Toggle Functionality
+            // ============================================
+            passwordToggle.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('show-password', type === 'text');
+            });
+
+            // ============================================
+            // Error Display Helper
+            // ============================================
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.classList.add('visible');
+                
+                // Announce to screen readers
+                errorMessage.setAttribute('aria-live', 'polite');
+            }
+
+            function hideError() {
+                errorMessage.classList.remove('visible');
+            }
+
+            // ============================================
+            // Form Validation
+            // ============================================
+            function validateForm(username, password) {
+                if (!username || username.trim() === '') {
+                    return { valid: false, message: 'Kullanıcı adı boş bırakılamaz.' };
+                }
+                if (!password || password === '') {
+                    return { valid: false, message: 'Şifre boş bırakılamaz.' };
+                }
+                return { valid: true };
+            }
+
+            // ============================================
+            // Loading State Management
+            // ============================================
+            function setLoadingState(loading) {
+                if (loading) {
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+                    usernameInput.disabled = true;
+                    passwordInput.disabled = true;
+                    passwordToggle.disabled = true;
+                } else {
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                    usernameInput.disabled = false;
+                    passwordInput.disabled = false;
+                    passwordToggle.disabled = false;
+                }
+            }
+
+            // ============================================
+            // Admin Login Handler
+            // ============================================
+            async function handleLogin(username, password) {
+                try {
+                    // Check if Admin object exists
+                    if (typeof Admin === 'undefined') {
+                        throw new Error('Admin sistemi yüklenemedi. Lütfen sayfayı yenileyin.');
+                    }
+
+                    // Attempt login
+                    const result = await Admin.login(username.trim(), password);
+
+                    if (result.ok) {
+                        // Redirect on success
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        throw new Error(result.msg || 'Giriş başarısız oldu.');
+                    }
+                } catch (error) {
+                    throw error;
+                }
+            }
+
+            // ============================================
+            // Form Submit Handler
+            // ============================================
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                hideError();
+
+                const username = usernameInput.value;
+                const password = passwordInput.value;
+
+                // Validate form
+                const validation = validateForm(username, password);
+                if (!validation.valid) {
+                    showError(validation.message);
+                    return;
+                }
+
+                // Set loading state
+                setLoadingState(true);
+
+                try {
+                    await handleLogin(username, password);
+                } catch (error) {
+                    showError(error.message || 'Giriş yapılırken bir hata oluştu.');
+                    setLoadingState(false);
+                }
+            });
+
+            // ============================================
+            // Clear error on input
+            // ============================================
+            usernameInput.addEventListener('input', hideError);
+            passwordInput.addEventListener('input', hideError);
+
+            // ============================================
+            // Initialize Admin System & Session Check
+            // ============================================
+            async function initialize() {
+                try {
+                    // Load Admin JS
+                    await loadScript('../admin/js/admin.js');
+
+                    // Wait for Admin to be available
+                    let attempts = 0;
+                    const maxAttempts = 50;
+                    
+                    while (typeof Admin === 'undefined' && attempts < maxAttempts) {
+                        await sleep(100);
+                        attempts++;
+                    }
+
+                    if (typeof Admin === 'undefined') {
+                        console.warn('Admin nesnesi yüklenemedi, manuel başlatma deneniyor...');
+                        return;
+                    }
+
+                    // Initialize all data
+                    if (typeof Admin.initAllData === 'function') {
+                        Admin.initAllData();
+                    }
+
+                    // Check existing session
+                    if (typeof Admin.getSession === 'function') {
+                        const session = Admin.getSession();
+                        if (session && session.userId) {
+                            // Already logged in, redirect
+                            window.location.href = 'admin-dashboard.html';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Başlatma hatası:', error);
+                    // Don't block the page load, user can still try to login
+                }
+            }
+
+            // ============================================
+            // Utility Functions
+            // ============================================
+            function loadScript(src) {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = src;
+                    script.async = true;
+                    script.onload = resolve;
+                    script.onerror = () => {
+                        // Script might already be loaded, resolve anyway
+                        resolve();
+                    };
+                    document.head.appendChild(script);
+                });
+            }
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            // ============================================
+            // Start Initialization
+            // ============================================
+            initialize();
+
+        })();
+    </script>
+</body>
+</html>

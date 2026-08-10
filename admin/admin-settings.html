@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayarlar — Öz EMG İnşaat Yönetim</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <svg viewBox="0 0 64 64" width="38" height="38" fill="none" stroke="#d4af37" stroke-width="2">
+          <rect x="6" y="28" width="6" height="30"/><rect x="16" y="18" width="8" height="40"/>
+          <rect x="28" y="6" width="10" height="52"/><rect x="42" y="22" width="6" height="36"/>
+          <rect x="52" y="32" width="5" height="26"/>
+        </svg>
+        <div><div class="sidebar-logo-text">ÖZ EMG</div><div class="sidebar-logo-sub">Yönetim Paneli</div></div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="admin-dashboard.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Gösterge Paneli</a>
+        <a href="admin-projects.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg> Projeler</a>
+        <a href="admin-services.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Hizmetler</a>
+        <a href="admin-messages.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mesajlar<span class="nav-badge danger" id="msgBadge" style="display:none">0</span></a>
+        <a href="admin-references.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Referanslar</a>
+        <a href="admin-blog.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l6 6v8a2 2 0 0 1-2 2z"/><polyline points="14 2 14 8 20 8"/></svg> Blog</a>
+        <div class="sidebar-section-title">Sistem</div>
+        <a href="admin-settings.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Ayarlar</a>
+        <a href="../index.html" class="nav-item" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg> Siteyi Gör</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar" id="userAvatar">A</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="userName">Yönetici</div>
+            <div class="sidebar-user-role">Admin</div>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="Admin.logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg> Çıkış Yap</button>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <button class="topbar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+          <div class="topbar-title">Yönetim Paneli <span>· Ayarlar</span></div>
+        </div>
+        <div class="topbar-right"><span class="topbar-time" id="topbarTime"></span></div>
+      </div>
+
+      <div class="page-content">
+        <div class="page-header">
+          <div class="page-header-text">
+            <h1>Genel Ayarlar</h1>
+            <p>Site bilgileri, iletişim, sosyal medya ve SEO ayarları.</p>
+          </div>
+        </div>
+
+        <form id="settingsForm" class="settings-grid">
+          <div class="settings-section">
+            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> Site Bilgileri</h3>
+            <div class="form-group"><label>Site Adı</label><input class="form-control" name="siteName"></div>
+            <div class="form-group"><label>Slogan</label><input class="form-control" name="tagline"></div>
+            <div class="form-group"><label>Slogan Detay</label><input class="form-control" name="slogan"></div>
+          </div>
+          <div class="settings-section">
+            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> İletişim</h3>
+            <div class="form-group"><label>Telefon</label><input class="form-control" name="phone"></div>
+            <div class="form-group"><label>WhatsApp</label><input class="form-control" name="whatsapp"></div>
+            <div class="form-group"><label>E-Posta</label><input class="form-control" name="email" type="email"></div>
+            <div class="form-group"><label>Adres</label><textarea class="form-control" name="address" rows="2"></textarea></div>
+            <div class="form-group"><label>Çalışma Saatleri</label><textarea class="form-control" name="workingHours" rows="2"></textarea></div>
+          </div>
+          <div class="settings-section">
+            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></svg> Sosyal Medya</h3>
+            <div class="form-group"><label>Instagram</label><input class="form-control" name="instagram"></div>
+            <div class="form-group"><label>Facebook</label><input class="form-control" name="facebook"></div>
+            <div class="form-group"><label>LinkedIn</label><input class="form-control" name="linkedin"></div>
+            <div class="form-group"><label>YouTube</label><input class="form-control" name="youtube"></div>
+            <div class="form-group"><label>Twitter / X</label><input class="form-control" name="twitter"></div>
+          </div>
+          <div class="settings-section">
+            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> SEO</h3>
+            <div class="form-group"><label>Domain</label><input class="form-control" name="domain"></div>
+            <div class="form-group"><label>Meta Açıklama</label><textarea class="form-control" name="metaDescription" rows="3"></textarea></div>
+          </div>
+          <div class="settings-section">
+            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M18 17V9M13 17V5M8 17v-3"/></svg> Anasayfa İstatistikleri</h3>
+            <div class="form-group"><label>Tamamlanan Proje</label><input class="form-control" name="statProjects" type="number"></div>
+            <div class="form-group"><label>Yıllık Tecrübe</label><input class="form-control" name="statYears" type="number"></div>
+            <div class="form-group"><label>Müşteri Memnuniyeti (%)</label><input class="form-control" name="statSatisfaction" type="number"></div>
+            <div class="form-group"><label>Uzman Çalışan</label><input class="form-control" name="statTeam" type="number"></div>
+          </div>
+        </form>
+
+        <div style="margin-top:1.5rem;display:flex;justify-content:flex-end;gap:0.6rem">
+          <button class="btn btn--outline" onclick="location.reload()" style="width:auto">İptal</button>
+          <button class="btn btn--gold" onclick="saveSettings()" style="width:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Ayarları Kaydet</button>
+        </div>
+
+        <div class="page-header" style="margin-top:2.5rem">
+          <div class="page-header-text">
+            <h1>Şifre Değiştir</h1>
+            <p>Admin giriş şifrenizi güncelleyin.</p>
+          </div>
+        </div>
+        <form id="passwordForm" class="settings-grid" onsubmit="return false;">
+          <div class="settings-section">
+            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Güvenlik</h3>
+            <div class="form-group"><label>Mevcut Şifre</label><input class="form-control" name="currentPassword" type="password" autocomplete="current-password"></div>
+            <div class="form-group"><label>Yeni Şifre</label><input class="form-control" name="newPassword" type="password" autocomplete="new-password"></div>
+            <div class="form-group"><label>Yeni Şifre (Tekrar)</label><input class="form-control" name="newPassword2" type="password" autocomplete="new-password"></div>
+          </div>
+        </form>
+        <div style="margin-top:1rem;display:flex;justify-content:flex-end;gap:0.6rem">
+          <button class="btn btn--gold" onclick="handleChangePassword()" style="width:auto">Şifreyi Güncelle</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container"></div>
+
+  <script src="../js/api-config.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    if (!Admin.requireAuth()) throw new Error('Not authenticated');
+
+    const session = Admin.getSession();
+    document.getElementById('userName').textContent = session.name || 'Yönetici';
+    document.getElementById('userAvatar').textContent = Admin.initials(session.name || 'A');
+
+    function updateClock() {
+      document.getElementById('topbarTime').textContent = new Date().toLocaleString('tr-TR', { dateStyle:'long', timeStyle:'short' });
+    }
+    updateClock(); setInterval(updateClock, 30000);
+
+    function loadSettings() {
+      const s = Admin.getSettings();
+      const f = document.getElementById('settingsForm');
+      Object.keys(s).forEach(k => {
+        const el = f.elements[k];
+        if (el) el.value = s[k] || '';
+      });
+    }
+
+    async function saveSettings() {
+      const f = document.getElementById('settingsForm');
+      const data = Object.fromEntries(new FormData(f).entries());
+      try {
+        await Admin.saveSettings(data);
+        Admin.toast('Ayarlar başarıyla kaydedildi!');
+      } catch (err) {
+        Admin.toast(err.message || 'Ayarlar kaydedilemedi.', 'error');
+      }
+    }
+
+    async function handleChangePassword() {
+      const f = document.getElementById('passwordForm');
+      const current = f.currentPassword.value;
+      const next = f.newPassword.value;
+      const next2 = f.newPassword2.value;
+      if (!current || !next) { Admin.toast('Mevcut ve yeni şifre zorunludur.', 'error'); return; }
+      if (next.length < 6) { Admin.toast('Yeni şifre en az 6 karakter olmalıdır.', 'error'); return; }
+      if (next !== next2) { Admin.toast('Yeni şifreler eşleşmiyor.', 'error'); return; }
+      try {
+        const res = await Admin.changePassword(current, next);
+        Admin.toast(res.msg || 'Şifre güncellendi!');
+        f.reset();
+      } catch (err) {
+        Admin.toast(err.message || 'Şifre güncellenemedi.', 'error');
+      }
+    }
+
+    (async function initPage() {
+      await Admin.initAllData();
+      Admin.updateSidebarBadges();
+      loadSettings();
+    })();
+  </script>
+</body>
+</html>
