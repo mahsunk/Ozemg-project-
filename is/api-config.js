@@ -6,7 +6,7 @@
    değiştirin. Örnek: 'https://ozemg-backend.onrender.com/api'
    ============================================ */
 
-window.API_BASE = 'https://YOUR-BACKEND-URL.onrender.com/api';
+window.API_BASE = 'https://ozemg-backend.onrender.com/api';
 
 // Formspree form ID'nizi buraya yazın (https://formspree.io üzerinden
 // oluşturduğunuz formun endpoint adresi, örn: 'https://formspree.io/f/xabcdwxy')
